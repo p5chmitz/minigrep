@@ -9,19 +9,21 @@ fn main() {
     // and passes them to a configuration function
     let args: Vec<String> = env::args().collect();
 
-    // Requires unwrap_or_else() or full match to bind return value
-    let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Error parsing arguments: {err}");
-        process::exit(1);
-    });
+    // Uses unwrap_or_else() with a closure to bind return value
+    //let config = Config::build(&args).unwrap_or_else(|err| {
+    //    println!("Error parsing arguments: {err}");
+    //    process::exit(1);
+    //});
+    // Does the same thing as above but uses a full match 
+    // statement to bind results
+    let config = match Config::build(&args) {
+        Ok(config) => config,
+        Err(error) => {
+            println!("Error parsing arguments: {error}");
+            process::exit(1);
+        },
+    };
 
-    //let config = match Config::build(&args) {
-    //    Ok(config) => config,
-    //    Err(error) => {
-    //        println!("Error parsing arguments: {error}");
-    //        process::exit(1);
-    //    },
-    //};
 
     // Handles a propagated error from the main program logic
     // contained in run()
