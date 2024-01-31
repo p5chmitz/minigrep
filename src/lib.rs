@@ -1,5 +1,31 @@
 use std::{error::Error, fs};
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "duct";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+
+    assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+    }
+}
+
+pub fn sampel(a: &str, b: &str) -> &str {
+    println!("{b}");
+    a
+}
+
+/**  */
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    vec![]
+}
+
 pub struct Config {
     query: String,
     file_path: String,
@@ -33,6 +59,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     println!("query: {}\npath: {}", config.query, config.file_path);
     println!("Contents of file:\n\n{}", contents);
 
-    // Indicates that we're only using the run() function for its side effects
+    // Indicates that we're only using the run() 
+    // function for its side effects, e.g. its a "void"
+    // type function that propagates its errors upstream
     Ok(())
 }
+
