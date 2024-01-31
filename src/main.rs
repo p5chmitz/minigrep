@@ -24,7 +24,6 @@ fn main() {
         },
     };
 
-
     // Handles a propagated error from the main program logic
     // contained in run()
     if let Err(e) = minigrep::run(config) {
